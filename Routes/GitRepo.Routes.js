@@ -1,8 +1,8 @@
 const axios = require("axios");
-const { GitDetailsModel } = require("../Models/GitDetails.Model");
-const GitDetailsRouter = require("express").Router();
+const { GitRepoModel } = require("../Models/GitRepo.Model");
+const GitRepoRouter = require("express").Router();
 
-GitDetailsRouter.post("/", async (req, res) => {
+GitRepoRouter.post("/", async (req, res) => {
 	const { url } = req.body;
 	try {
 		const GitDetails = await axios.get(url);
@@ -42,20 +42,19 @@ GitDetailsRouter.post("/", async (req, res) => {
 					site_admin,
 				},
 			};
-			const isExist = await GitDetailsModel.findOne({ id });
+			const isExist = await GitRepoModel.findOne({ id });
 
 			if (!isExist) {
-				const newData = new GitDetailsModel(data);
+				const newData = new GitRepoModel(data);
 				await newData.save();
 			} else {
-				const updateData = GitDetailsModel.updateOne({ id }, data);
+				const updateData = GitRepoModel.updateOne({ id }, data);
 			}
 		}
 		return res
 			.status(200)
-			.json({ msg: "Data Created/Updated Successfully!!!", response: true });
-		// res.send(GitDetails);s
-		// res.json({ msg: "Something went Wrong!!!", response: false });
+			.json({ msg: "Data Created Successfully!!!", response: true });
+
 	} catch (error) {
 		console.log(error);
 		res.status(400).json({
@@ -64,10 +63,10 @@ GitDetailsRouter.post("/", async (req, res) => {
 	}
 });
 
-GitDetailsRouter.get("/:id", async (req, res) => {
+GitRepoRouter.get("/:id", async (req, res) => {
 	try {
 		const { id } = req.params;
-		const data = await GitDetailsModel.findOne({ id });
+		const data = await GitRepoModel.findOne({ id });
 
 		if (data) {
 			res
@@ -83,4 +82,4 @@ GitDetailsRouter.get("/:id", async (req, res) => {
 		});
 	}
 });
-module.exports = { GitDetailsRouter };
+module.exports = { GitRepoRouter };

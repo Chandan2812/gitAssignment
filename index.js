@@ -1,6 +1,6 @@
 const express = require("express");
 const { Connection } = require("./Config/db");
-const { GitDetailsRouter } = require("./Routes/GitDetails.Routes");
+const { GitRepoRouter } = require("./Routes/GitRepo.Routes");
 require("dotenv").config();
 const port = process.env.PORT || 8000;
 
@@ -9,10 +9,10 @@ const app = express();
 app.use(express.json());
 
 app.get("/", (req, res) => {
-	res.json({ msg: "Welcome to GitDetails, This is the basic EndPoint!!!!" });
+	res.json({ msg: "Welcome to Github Repo" });
 });
 
-app.use("/github", GitDetailsRouter);
+app.use("/github", GitRepoRouter);
 
 app.listen(port, async () => {
 	try {
@@ -21,5 +21,5 @@ app.listen(port, async () => {
 	} catch (error) {
 		console.log(error.message);
 	}
-	console.log(`Listening @ ${port}!!!`);
+	console.log(`Listening @ ${port}`);
 });

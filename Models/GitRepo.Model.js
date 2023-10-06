@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const GitDetailsSchema = new mongoose.Schema({
+const GitRepoSchema = new mongoose.Schema({
 	id: Number,
 	name: String,
 	html_url: String,
@@ -11,6 +11,6 @@ const GitDetailsSchema = new mongoose.Schema({
 	owner: Object,
 });
 
-const GitDetailsModel = mongoose.model("GitDetail", GitDetailsSchema);
+const GitRepoModel = mongoose.model("GitRepo", GitRepoSchema);
 
-module.exports = { GitDetailsModel };
+module.exports = { GitRepoModel };
